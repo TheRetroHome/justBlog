@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('likes');
             $table->integer('views');
-            $table->unsignedBigInteger('article_id');
+            $table->unsignedBigInteger('article_id')->constrained()->onDelete('cascade');
         });
     }
 
