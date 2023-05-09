@@ -27,4 +27,7 @@ class Article extends Model
     public function createdAtForHumans(){
         return $this->created_at->diffForHumans();
     }
+    public function scopeLastLimit($query,$numbers){
+        return $query->with('tags','state')->paginate(6);
+    }
 }
