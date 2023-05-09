@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 class Article extends Model
 {
     use HasFactory;
@@ -18,5 +20,11 @@ class Article extends Model
     }
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+    public function getBodyPreview(){
+        return Str::limit($this->body,100);
+    }
+    public function createdAtForHumans(){
+        return $this->created_at->diffForHumans();
     }
 }
