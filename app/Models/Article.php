@@ -10,7 +10,7 @@ class Article extends Model
 {
     use HasFactory;
     protected $fillable = ['title','body','img','slug'];
-
+    public $dates = ['published_at'];
 //    protected $guarded = [];
     public function comments(){
         return $this->hasMany(Comment::class);
@@ -24,8 +24,11 @@ class Article extends Model
     public function getBodyPreview(){
         return Str::limit($this->body,100);
     }
+    public function getPublishedAtAttribute($value){
+        return Carbon::parse($value);
+    }
     public function createdAtForHumans(){
-        return $this->created_at->diffForHumans();
+        return $this->published_at->diffForHumans();
     }
     public function scopeLastLimit($query,$numbers){
         return $query->with('tags','state')->paginate(6);
