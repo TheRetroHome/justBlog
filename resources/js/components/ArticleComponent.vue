@@ -11,7 +11,7 @@
             <p class="card-text">{{article.body}}</p>
             <p>Опубликовано: <i>{{article.created_at}}</i></p>
             <div class="mt-3">
-                <span class="badge bg-danger">{{views}} <i class="far fa-eye"></i></span>
+                <views-component></views-component>
                 <span class="badge bg-primary">{{likes}} <i class="far fa-eye"></i></span>
             </div>
         </div>
@@ -19,16 +19,15 @@
 </template>
 
 <script>
+import ViewsComponent from "./ViewsComponent.vue";
 export default {
+    components: {ViewsComponent},
     computed:{
         article(){
             return this.$store.state.article;
         },
         tagsLen(){
             return this.$store.state.article.tags.length;
-        },
-        views(){
-            return this.$store.getters.articleViews;
         },
         likes(){
             return this.$store.getters.articleLikes;

@@ -12,17 +12,26 @@ const store = createStore({
         },
         slug: ''
     },
-    actions: {
-        getArticleData(context,payload){
-            console.log('context',context)
-            console.log('context',payload)
-            axios.get('/api/article-json',{params: {slug:payload}}).then((response)=>{
-                context.commit('SET_ARTICLE',response.data.data);
-            }).catch(()=>{
-                console.log('Error');
-            })
-        }
-    },
+        actions: {
+            getArticleData(context, payload) {
+                console.log('context', context);
+                console.log('payload', payload);
+                axios.get('/api/article-json', { params: { slug: payload } }).then((response) => {
+                    context.commit('SET_ARTICLE', response.data.data);
+                }).catch(() => {
+                    console.log('Error');
+                });
+            },
+            viewsIncrement(context, payload) {
+                setTimeout(() => {
+                    axios.put('/api/article-views-increment', { slug: payload }).then((response) => {
+                        context.commit('SET_ARTICLE', response.data.data)
+                    }).catch(() => {
+                        console.log('Ошибка');
+                    });
+                }, 5000);
+            }
+        },
     getters: {
         articleViews(state){
             if(state.article.statistic){

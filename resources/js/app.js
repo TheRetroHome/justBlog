@@ -18,6 +18,7 @@ const app = createApp({
         console.log(slug);
         this.$store.commit('SET_SLUG',slug);
         this.$store.dispatch('getArticleData', slug);
+        this.$store.dispatch('viewsIncrement',slug);
     }
 });
 
@@ -29,4 +30,7 @@ app.component('example-component', ExampleComponent);
 
 import ArticleComponent from "./components/ArticleComponent.vue";
 app.component('article-component',ArticleComponent);
+
+import ViewsComponent from "./components/ViewsComponent.vue";
+app.component('views-component',ViewsComponent);
 
