@@ -14,12 +14,14 @@ import { createApp } from 'vue';
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
-
-const app = createApp({});
+import store from './store'
+const app = createApp({store});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 
+import ArticleComponent from "./components/ArticleComponent.vue";
+app.component('article-component',ArticleComponent);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
