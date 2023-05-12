@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 class ArticleController extends Controller
 {
-    public function show(){
-        $article = Article::with('comments','tags','state')->first();
+    public function show(Request $request){
+        $slug = $request->get('slug');
+        $article = Article::findBySlug($slug);
         return new ArticleResource($article);
     }
 }
