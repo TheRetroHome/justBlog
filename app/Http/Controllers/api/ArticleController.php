@@ -22,5 +22,9 @@ class ArticleController extends Controller
     public function likesIncrement(Request $request){
         $slug = $request->get('slug');
         $article = Article::findBySlug($slug);
+
+        $inc = $request->get('increment');
+        $inc ? $article->state->increment('likes') : $article->state->decrement('likes');
+        return new ArticleResource($article);
     }
 }

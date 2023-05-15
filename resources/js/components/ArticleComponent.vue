@@ -12,7 +12,7 @@
             <p>Опубликовано: <i>{{article.created_at}}</i></p>
             <div class="mt-3">
                 <views-component></views-component>
-                <span class="badge bg-primary">{{likes}} <i class="far fa-eye"></i></span>
+                <likes-component></likes-component>
             </div>
         </div>
     </div>
@@ -20,8 +20,9 @@
 
 <script>
 import ViewsComponent from "./ViewsComponent.vue";
+import LikesComponent from "./LikesComponent.vue";
 export default {
-    components: {ViewsComponent},
+    components: {ViewsComponent,LikesComponent},
     computed:{
         article(){
             return this.$store.state.article;
@@ -29,13 +30,9 @@ export default {
         tagsLen(){
             return this.$store.state.article.tags.length;
         },
-        likes(){
-            return this.$store.getters.articleLikes;
-        }
     },
     mounted() {
         console.log('Component article mounted');
-        this.$store.dispatch('getArticleData');
     }
 }
 </script>

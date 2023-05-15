@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import axios from "axios";
 
 const store = createStore({
     state: {
@@ -10,7 +11,8 @@ const store = createStore({
                 views: 0
             }
         },
-        slug: ''
+        slug: '',
+        likeIt: true
     },
         actions: {
             getArticleData(context, payload) {
@@ -30,6 +32,15 @@ const store = createStore({
                         console.log('Ошибка');
                     });
                 }, 5000);
+            },
+            addLike(context,payload){
+                axios.put('/api/article-likes-increment',{slug:payload.slug, increment:payload.increment}).then((response)=>{
+                    context.commit('SET_ARTICLE',response.data.data);
+                    context.commit('SET_LIKE',!context.state.likeIt)
+                }).catch(()=>{
+                    console.log('Ошибка addLike')
+                });
+                console.log("После клика по кнопке", context.state.likeIt);
             }
         },
     getters: {
@@ -51,6 +62,9 @@ const store = createStore({
         SET_SLUG(state,payload){
             return state.slug = payload;
         },
+        SET_LIKE(state,payload){
+            return state.likeIt = payload;
+        }
     }
 });
 
